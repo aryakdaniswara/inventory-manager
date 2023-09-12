@@ -63,7 +63,7 @@ python manage.py runserver
 </details>
 
 ---
-### Membuat aplikasi dengan nama main pada dan routing untuk menjalankannya.
+### Membuat aplikasi dengan nama main dan routing untuk menjalankannya.
 <details>
 <summary> Membuat aplikasi main pada proyek Anda </summary>
   
