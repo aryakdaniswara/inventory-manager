@@ -1,4 +1,4 @@
-# inventory-manager
+# inventory_manager
 
 ### Membuat sebuah proyek Django baru
 <details>
@@ -63,7 +63,7 @@ python manage.py runserver
 </details>
 
 ---
-### Membuat aplikasi dengan nama main pada proyek tersebut.
+### Membuat aplikasi dengan nama main pada dan routing untuk menjalankannya.
 <details>
 <summary> Membuat aplikasi main pada proyek Anda </summary>
   
@@ -116,7 +116,7 @@ INSTALLED_APPS = [
 </details>
 
 ---
-### Melakukan routing agar aplikasi main dapat berjalan dan terpetakan.
+### Melakukan routing pada urls.py.
 <details>
 <summary> Konfigurasi untuk menjalankan aplikasi main </summary>
 
@@ -394,6 +394,45 @@ def show_main(request):
 </details>
 
 ---
+### Bagan Relasi
+<img src=bagan.png>
+
+- urls.py <div>
+  File urls.py akan menerima request yang dilakukan User. Pencarian url akan dilakukan urlpatterns untuk menemukan url yang sesuai dengan request yang diberikan.
+- views.py <div>
+  File views.py akan menjalakan fungsi show_main yang akan memberikan context yang nantinya akan menjadi acuan dari isi website tersebut. Context yang diberikan akan diteruskan ke main.html untuk memberikan response yang sesuai
+- models.py <div>
+  models.py akan berisikan data yang kita inginkan pada aplikasi. Model dapat berisikan atribut yang memiliki field masing-masing seperti, text, integer, atau char
+- html <div>
+  html atau file main.html pada template akan menunjukan tampilan kepada User. Tampilan ini akan berisi informasi berdasarkan data yang diterima dari views.py yang akan disesuaikan dengan fieldnya masing-masing
+---
+
+### Mengapa menggunakan virtual environtment
+Virtual environment digunakan agar tidak terjadi konflik antar dependencies yang ada pada proyek lain atau pada versi lain yang ada. Virtual environment menyediakan lingkungan yang tertutup di mana dependencies yang ada hanya akan sesuai dengan yang diinstall pada virtual enviroment itu
+
+Pengembangan aplikasi web berbasis Django masih dapat digunakan tanpa menggunakan virtual environment. Akan tetapi, semakin kita sering membuat dan 'otak-otik' dengan dependency atau proyek-proyek yang kita punya, konflik akan semakin rentan untuk terjadi dan akan menggangu proses pengembangan aplikasi kita.
+
+---
+
+### MVC, MVT, dan MVVM
+1. MVC (Model View Controller)
+   Sistem pengembangan aplikasi dengan cara pemisahan kode menjadi 3 bagian, Model, View, dan Controller.
+   - Model: Bagian yang mengelola data dan logika dari aplikasi
+   - View: Bagian yang menampilkan hasil response dari request yang diberikan User dan mengatur tampilan dan logika tampilan
+   - Controller: Bagian yang mengatur hubungan antara Model dan View
+  
+2. MVT (Model View Template)
+   Sistem pengembangan aplikasi yang mirip dengan MVC, tapi bagian Controller digantikan dengan Template
+    - Model: Bagian yang mengelola data dan logika dari aplikasi
+   - View: Bagian yang menampilkan hasil response dari request yang diberikan User, namun tanpa mengatur logika tampilan
+   - Template: Bagian yang mengatur struktur tampilan dari data yang diperoleh
+
+3. MVVM (Model View ViewModel)
+   Sistem pengembangan aplikasi dengan pemisahan pada 3 bagian, yaitu, Model, View, dan ViewModel. Struktur ViewModel berbeda dengan Controller, di mana ViewModel memiliki keterikatan (binding) yang lebih ketat.
+   - Model: Bagian yang mengelola data dan logika dari aplikasi
+   - View: Bagian yang mengatur tampilan dari aplikasi dan menampilkan data. Action dari input pengguna akan diteruskan ke ViewModel
+   - ViewModel: Bagian perantara antara Model dan View. ViewModel menjadi penghubung antara logika dan tampilan aplikasi
+  
 
 
 
