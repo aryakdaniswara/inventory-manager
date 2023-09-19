@@ -432,7 +432,92 @@ Pengembangan aplikasi web berbasis Django masih dapat digunakan tanpa menggunaka
    - Model: Bagian yang mengelola data dan logika dari aplikasi
    - View: Bagian yang mengatur tampilan dari aplikasi dan menampilkan data. Action dari input pengguna akan diteruskan ke ViewModel
    - ViewModel: Bagian perantara antara Model dan View. ViewModel menjadi penghubung antara logika dan tampilan aplikasi
+---
+
+### Membuat input form untuk menambahkan objek model pada aplikasi main
+Untuk membuat suatu input form, kita perlu membuat file baru bernama `forms.py` pada direktori aplikasi `main`. File ini akan digunakan untuk membuat kerangka form yang akan menerima input dari pengguna. Dalam file tersebut kita akan menambahkan field yang ingin kita dapatkan dari pengguna. Jika pada model yang kita punya tidak ada nilai _default_, maka semua field harus dimasukkan ke dalam form berikut. 
+
+```
+from django.forms import ModelForm
+from main.models import Item
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = ["name", "price", "amount", "description"]
+```
+pada file `forms.py` akan diambil field _name_, _price_, _amount_, dan _description_ dari models yang kita buat, dalam file ini adalah `Item`. Sebenarnya ada satu field yang diambil secara otomatis, yaitu field `date_added`.
+
+### Menambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID.
+Untuk mengimplementasikan fungsi yang ingin kita gunakan pada aplikasi ini, kita perlu menerapkan fungsi tersebut ke dalam file `views.py` yang berada pada direktori `main`. Terdapat 5 fungsi yang ingin kita tambahkan pada aplikasi ini:
+1. Fungsi create_product
+   fungsi ini digunakan untuk membuat product baru sesuai dengan form HTML yang sebelumnya diisi oleh pengguna.
+3. Fungsi show_xml <br>
+   fungsi ini akan menampilkan data dari semua produk yang sudah dibuat dalam format xml.
+5. Fungsi show_json <br>
+   fungsi ini digunakan untuk menampilkan data dari semua produk yang sudah dibuat dalam format JSON.
+7. Fungsi show_xml_by_id <br>
+   fungsi ini akan menampilkan data produk yang ada berdasarkan dengan id yang diinginkan dalam format xml.
+9. Fungsi show_json_by_id <br>
+   fungsi ini akan menampilkan data produk yang ada berdasarkan dengan id yang diinginkan dalam format JSON.
+   
+Pengimplementasikan dari fungsi tersebut dapat dilihat dari kode berikut: 
+```
+def create_product(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_product.html", context)
+
+def show_xml(request):
+    data = Item.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = Item.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_xml_by_id(request, id):
+    data = Item.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json_by_id(request, id):
+    data = Item.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+
+### Membuat routing URL untuk masing-masing fungsi views 
+Routing URL akan dilakukan agar fungsi yang telah kita buat di `views.py` agar pengguna dapat menggunakan fungsi tersebut sesuai dengan tujuannya.  Routing URL diterapkan pada file `urls.py` yang ada pada folder `main`. Pada file ini, kita akan mengimpor fungsi yang telah kita buat dari `views.py` dan menambahkan _path url_-nya agar fungsi tersebut dapat diakses. Fungsi yang telah kita buat akan berkorespondensi dengan url nya masing-masing, yang ditunjukan pada kode berikut:
+
+```
+from django.urls import path
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
+
+app_name = 'main'
+
+urlpatterns = [
+    path('', show_main, name='show_main'),
+    path('create-product', create_product, name='create_product'),
+    path('xml/', show_xml, name='show_xml'), 
+    path('json/', show_json, name='show_json'), 
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
+]
+```
+
   
+### Perbedaan antara form POST dan GET dalam Django
+- Metode POST digunakan untuk mengirimkan _request_ untuk membuat, memperbarui, atau menghapus data. Pada metode POST, nilai variabel tidak akan ditambilkan di url sehingga lebih aman. Metode POST biasa digunakan untuk _request_ yang akan mengubah data seperti mengirim formulir atau mengirim komentar.
+- Metode GET adalah _request_ yang umumnya digunakan untuk mengambil suatu data dari server. Pada metode GET, nilai variabel biasanya akan dapat dilihat melalui url sehingga menjadi lebih tidak aman. Metode GET digunakan untuk mengakses/navigasi halaman atau mencari informasi.
+
+ ### Perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data
+ - XML biasanya digunakan untuk pertukaran data antar aplikasi yang berbeda atau untuk konfigurasi data. XML menyimpan daya dalam struktur pohon sehingga digunakan untuk menggambar atau menyusun data dalam bentuk hierarki. XML juga memiliki sintaks yang lebih kompleks, tidak terlalu mudah dibaca, dan cenderung lebih _redundant_ karena harus mengulang referensi yang ada.
+ - JSON adalah format pertukaran data yang ringan dengan sintaks yang lebih padat dan lebih mudah dibaca oleh manusia. JSON menggunakan struktur seperti peta dengan data yang direpresentasikan dalam bentuk pasangan kunci-nilai. JSON biasa digunakan untuk pertukaran data terstruktur seperti pada pertukaran data antar server.
+ - HTML biasanya digunakan untuk membuat konten dari halaman web yang ada untuk diterjemahkan oleh _browser_. HTML memiliki sintaks yang cenderung ditargetkan kepada pembuatan tampilan web dan mendefinisikan elemen yang ada dalam web tersebut.
 
 
 
