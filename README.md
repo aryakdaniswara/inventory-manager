@@ -559,6 +559,12 @@ def show_main(request):
  - JSON adalah format pertukaran data yang ringan dengan sintaks yang lebih padat dan lebih mudah dibaca oleh manusia. JSON menggunakan struktur seperti peta dengan data yang direpresentasikan dalam bentuk pasangan kunci-nilai. JSON biasa digunakan untuk pertukaran data terstruktur seperti pada pertukaran data antar server.
  - HTML biasanya digunakan untuk membuat konten dari halaman web yang ada untuk diterjemahkan oleh _browser_. HTML memiliki sintaks yang cenderung ditargetkan kepada pembuatan tampilan web dan mendefinisikan elemen yang ada dalam web tersebut.
 ---
+### Alasan JSON sering digunakan dalam pertukaran data antara aplikasi web modern
+Format JSON sering digunakan dalam pertukaran data antara aplikasi web modern dikarenakan beberapa hal, antara lain:
+1. JSON merupakan format yang lebih ringan dan efisien dibandingkan dengan format lain seperti XML. Dengan beban yang lebih ringan, server dapat bekerja dengan lebih cepat dan efisien.
+2. JSON memiliki sintaks yang sederhana dan mudah dibaca oleh manusia sehingga dapat memudahkan pengembang untuk memahaminya ketika menghadapi dengan masalah pada format JSON
+3. JSON mendungkung berbagai macam struktur data. Dengan menggunakan JSON, pengembang dapat membuat berbagai macam data yang lebih kompleks dengan mudah.
+4. JSON dapat diproses oleh sebagian besar browser modern menggunakan JavaScript. Dengan adanya dukungan ini, pertukaran data dapat dilakukan dengan lebih mudah dan efisien.
 
 
 
