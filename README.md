@@ -448,9 +448,10 @@ class ProductForm(ModelForm):
 ```
 pada file `forms.py` akan diambil field _name_, _price_, _amount_, dan _description_ dari models yang kita buat, dalam file ini adalah `Item`. Sebenarnya ada satu field yang diambil secara otomatis, yaitu field `date_added`.
 
+---
 ### Menambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID.
 Untuk mengimplementasikan fungsi yang ingin kita gunakan pada aplikasi ini, kita perlu menerapkan fungsi tersebut ke dalam file `views.py` yang berada pada direktori `main`. Terdapat 5 fungsi yang ingin kita tambahkan pada aplikasi ini:
-1. Fungsi create_product
+1. Fungsi create_product <br>
    fungsi ini digunakan untuk membuat product baru sesuai dengan form HTML yang sebelumnya diisi oleh pengguna.
 3. Fungsi show_xml <br>
    fungsi ini akan menampilkan data dari semua produk yang sudah dibuat dalam format xml.
@@ -461,7 +462,7 @@ Untuk mengimplementasikan fungsi yang ingin kita gunakan pada aplikasi ini, kita
 9. Fungsi show_json_by_id <br>
    fungsi ini akan menampilkan data produk yang ada berdasarkan dengan id yang diinginkan dalam format JSON.
    
-Pengimplementasikan dari fungsi tersebut dapat dilihat dari kode berikut: 
+Implementasi dari fungsi tersebut dapat dilihat dari kode berikut: 
 ```
 def create_product(request):
     form = ProductForm(request.POST or None)
@@ -490,8 +491,9 @@ def show_json_by_id(request, id):
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 ```
 
+---
 ### Membuat routing URL untuk masing-masing fungsi views 
-Routing URL akan dilakukan agar fungsi yang telah kita buat di `views.py` agar pengguna dapat menggunakan fungsi tersebut sesuai dengan tujuannya.  Routing URL diterapkan pada file `urls.py` yang ada pada folder `main`. Pada file ini, kita akan mengimpor fungsi yang telah kita buat dari `views.py` dan menambahkan _path url_-nya agar fungsi tersebut dapat diakses. Fungsi yang telah kita buat akan berkorespondensi dengan url nya masing-masing, yang ditunjukan pada kode berikut:
+Routing URL akan dilakukan agar fungsi yang telah kita buat di `views.py` agar pengguna dapat menggunakan fungsi tersebut sesuai dengan tujuannya.  Routing URL diterapkan pada file `urls.py` yang ada pada folder `main`. Pada file ini, kita akan mengimpor fungsi yang telah kita buat dari `views.py` dan menambahkan _path url_-nya agar fungsi tersebut dapat diakses. Fungsi yang telah kita buat akan berkorespondensi dengan url nya masing-masing, yang ditunjukkan pada kode berikut:
 
 ```
 from django.urls import path
@@ -509,15 +511,54 @@ urlpatterns = [
 ]
 ```
 
-  
+---
+### Mengakses URL menggunakan Postman
+- main HTML
+  <img src=HTML.jpg>
+- create-form HTML
+  <img src=create-form.jpg>
+- XML
+   <img src=XML.jpg>
+- JSON
+   <img src=JSON.jpg>
+- XML by ID
+  <img src=XMLbyID.jpg>
+- JSON by ID
+- <img src=JSONbyID.jpg>
+
+---
+### Tambahan
+- Memperbaiki `tests.py` yang berada pada direktori `main`
+  Unit testing diperbaiku agar dapat berjalan dengan memberikan suatu nilai default kepada parameter yang dibutuhkan walaupun parameter tersebut tidak diujikan dalam unit test tersebut. Dengan menambahkan nilai default pada paramaeter model yang ada, unit test dapat berjalan tanpa adanya error.
+- Menambahkan penghitung item
+  Untuk menambahkan penghitung item yang ada, dapat dibuat dengan mengecek len dari item. Dengan kata lain, ketika kita mengetahui berapa banyak item yang sudah dibuat sesuai dengan `item = Item.objects.all()` dan mencari tau dengan `len(item)`, kita bisa mengetahui sudah berapa banyak item yang sudah dibuat. Implementasi dari metode ini dapat dilihat dari kode berikut di file `views.py` dalam direktori `main`.
+
+```
+def show_main(request):
+    item = Item.objects.all()
+
+    context = {
+        'name' : 'Arya Kusuma Daniswara',
+        'class' : 'PBP B',
+        'appName' : 'inventory00',
+        'products': item,
+        'products_count' : len(item),
+    }
+
+    return render(request, "main.html", context)
+```
+
+---
 ### Perbedaan antara form POST dan GET dalam Django
 - Metode POST digunakan untuk mengirimkan _request_ untuk membuat, memperbarui, atau menghapus data. Pada metode POST, nilai variabel tidak akan ditambilkan di url sehingga lebih aman. Metode POST biasa digunakan untuk _request_ yang akan mengubah data seperti mengirim formulir atau mengirim komentar.
 - Metode GET adalah _request_ yang umumnya digunakan untuk mengambil suatu data dari server. Pada metode GET, nilai variabel biasanya akan dapat dilihat melalui url sehingga menjadi lebih tidak aman. Metode GET digunakan untuk mengakses/navigasi halaman atau mencari informasi.
 
+---
  ### Perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data
  - XML biasanya digunakan untuk pertukaran data antar aplikasi yang berbeda atau untuk konfigurasi data. XML menyimpan daya dalam struktur pohon sehingga digunakan untuk menggambar atau menyusun data dalam bentuk hierarki. XML juga memiliki sintaks yang lebih kompleks, tidak terlalu mudah dibaca, dan cenderung lebih _redundant_ karena harus mengulang referensi yang ada.
  - JSON adalah format pertukaran data yang ringan dengan sintaks yang lebih padat dan lebih mudah dibaca oleh manusia. JSON menggunakan struktur seperti peta dengan data yang direpresentasikan dalam bentuk pasangan kunci-nilai. JSON biasa digunakan untuk pertukaran data terstruktur seperti pada pertukaran data antar server.
  - HTML biasanya digunakan untuk membuat konten dari halaman web yang ada untuk diterjemahkan oleh _browser_. HTML memiliki sintaks yang cenderung ditargetkan kepada pembuatan tampilan web dan mendefinisikan elemen yang ada dalam web tersebut.
+---
 
 
 
