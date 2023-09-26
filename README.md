@@ -762,7 +762,9 @@ path('delete_product/<int:product_id>/', delete_product, name='delete_product'),
 ...
 ```
 - Coba tambahkan dan kurangi amount, coba delete suatu item
+  
 6. Membuat dan mengetes dummy data pada 2 user
+  
 Tambahkan beberapa item dengan mengisi form 'Add Item; di kedua user
 - Berikut tampilan di user 1: ABA
 <img src=user_1_ABA.jpg>
@@ -770,7 +772,7 @@ Tambahkan beberapa item dengan mengisi form 'Add Item; di kedua user
 - Berikut tampilan di user 2: Ari
 <img src=user_2_Ari.jpg>
 
-Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengakses item yang ada di user 1, begitu juga dnegan user 2
+Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengakses item yang ada di user 1, begitu juga dengan user 2
 
 
 
