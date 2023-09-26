@@ -666,7 +666,7 @@ path('register/', register, name='register'),
 path('login/', login_user, name='login'),
 path('logout/', logout_user, name='logout'),
 ```
-3. Membuat login dibutuhkan untuk mengakses menu inventory dan menghubungkan data inventory dengan user yang login
+3. Membuat login dibutuhkan untuk mengakses menu inventory, menambahkan last login dan cookies, serta menghubungkan data inventory dengan user yang login
 ```
 @login_required(login_url='/login')
 def show_main(request):
