@@ -1,10 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Item(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=255)
-    amount = models.IntegerField(default=0)
-    description = models.TextField(default="")
-    price = models.IntegerField(default=0)
+    amount = models.IntegerField()
+    description = models.TextField()
+    price = models.IntegerField()
     date_added = models.DateField(auto_now_add=True)
