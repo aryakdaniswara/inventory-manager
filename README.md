@@ -768,7 +768,7 @@ Berikut tampilan di user 1: ABA
 <img src=user_1_ABA.jpg>
 
 Berikut tampilan di user 2: Ari
-<img src=user_1_Ari.jpg>
+<img src=user_2_Ari.jpg>
 
 Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengakses item yang ada di user 1, begitu juga dnegan user 2
 
