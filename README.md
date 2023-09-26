@@ -765,7 +765,7 @@ path('delete_product/<int:product_id>/', delete_product, name='delete_product'),
   
 6. Membuat dan mengetes dummy data pada 2 user
   
-Tambahkan beberapa item dengan mengisi form 'Add Item; di kedua user
+Tambahkan beberapa item dengan mengisi form 'Add Item' di kedua user
 - Berikut tampilan di user 1: ABA
 <img src=user_1_ABA.jpg>
 
