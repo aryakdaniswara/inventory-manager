@@ -565,11 +565,212 @@ Format JSON sering digunakan dalam pertukaran data antara aplikasi web modern di
 2. JSON memiliki sintaks yang sederhana dan mudah dibaca oleh manusia sehingga dapat memudahkan pengembang untuk memahaminya ketika menghadapi dengan masalah pada format JSON
 3. JSON mendungkung berbagai macam struktur data. Dengan menggunakan JSON, pengembang dapat membuat berbagai macam data yang lebih kompleks dengan mudah.
 4. JSON dapat diproses oleh sebagian besar browser modern menggunakan JavaScript. Dengan adanya dukungan ini, pertukaran data dapat dilakukan dengan lebih mudah dan efisien.
+---
+#### Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+UserCreationForm adalah sistem autentikasi pengguna dari Django yang digunakan untuk mendaftarkan pengguna baru ke situs web yang kita inginkan. Sistem ini akan menyimpan data hasil registrasi dan akan memberifikasi username dan password yang dimasukkan oleh pengguna secara otomatis
 
+##### Kelebihan
+UserCreationForm akan membuat proses pembuatan akun user baru menjadi lebih cepat dan sederhana, tanpa perlu membuat seluruh sistem sendiri dengan manual. Kita hanya perlu menggunakan framework yang sudah ada di Django. UserCreationForm juga sudah menyimpan data secara otomatis dan aman, serta sudah memvalidasi password yang digunakan user sehingga akun yang dibuat sudah memiliki keamanan yang cukup.
 
+##### Kekurangan
+Pada UserCreationForm form pembuatan akun yang diberikan hanya berbentuk tampilan dasar dan sederhana. Beberapa fitur juga tidak ada dalam tampilannya, fitur seperti verifikasi email dan lainnya tidak ada. UserCreationForm hanya memberika form pembuatan user dengan fields yang sederhana, hanya fields seperti username, password, dan nama.
 
+### Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+- Autentifikasi adalah proses verifikasi identitas pengguna ketika pengguna tersebut berusaha untuk mengakses aplikasi web. Validasi data antara username dan password yang dilaukan ketika pengguna login. Autentifikasi penting untuk memastikan bahwa yang mengakses aplikasi web memang benar pengguna dengan data dan kredensial yang sesuai.
+- Otorisasi adalah proses yang menentukan izin yang dimiliki suatu user ketika sudah login. Otorisasi akan mengatur hal apa saja yang bisa diakses atau dimiliki oleh pengguna tersebut. Otorisasi penting untuk memastikan batasan izin dan akses bagi user yang Anda. Jangan sampai user dapat mengakses atau mengubah informasi yang penting.
 
+### Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+Cookies merupakan suatu data yang disimpan dalam browser user dan digunakan untuk menyimpan informasi yang diperlukan daro suatu aplikasi web. Cokkies dapat membantu aplikasi web untuk mengingat dan mengidentifikasi sesi user ketika sedang berinteraksi. Cookies dapat digunakan untuk beberapa keperluan seperti mengingat preferensi user atau melakukan otentikasi seperti ketika login. Django menggunakan salah satunya untuk login juga, jadi kita tidak perlu login lagi di setiap berpindah lama. Cookies pada Django digunakan dengan cara menyisipkan session id yang unik untuk menghubungkan cookies sehingga dapat mengakses session id yang ada. Dengan session id tersebut, Django dapat menghubungkan user dengan sesi yang tepat ketika kita mengakses website.
 
+### Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Dalam pengembangan penggunaan cookies secara default 'sebenarnya' aman karena cookies umumnya digunakan untuk mempermudah dan mempercepat akses kita ke siatu web. Akan tetapi, belakangan ini terdapat banyak kasus di mana dengan adanya penggunaan cookies dapat terjadi penggunaan data aktivitas kita yang kemudian digunakan untuk iklan, atau bahkan tindakan kriminal. Penggunaan cookies yang tidak sesuai tersebut dapat melanggar privasi kita atau bahkan tanpa implementasi yang benar bisa jadi digunakan untuk memalsukan session kita sehingga terjadi session hijacking di mana orang pura-pura menjadi kita dengan menggunakan data sesi yang ada.
+
+### Implementasi checklist
+1. Membuat file register.html sebagai template dari form untuk registrasi user
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Register</title>
+{% endblock meta %}
+
+{% block content %}  
+
+<div class = "login">
+    
+    <h1>Register</h1>  
+
+        <form method="POST" >  
+            {% csrf_token %}  
+            <table>  
+                {{ form.as_table }}  
+                <tr>  
+                    <td></td>
+                    <td><input type="submit" name="submit" value="Daftar"/></td>  
+                </tr>  
+            </table>  
+        </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+{% endblock content %}
+```
+2. Membuat fungsi register, login, dan logout di views.py dan menambahkan path url ke urls.py
+```
+ddef register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('main:login')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+    context = {}
+    return render(request, 'login.html', context)
+
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+- Hubungkan dengan urls.py
+```
+from main.views import register, login_user, logout_user
+...
+path('register/', register, name='register'),
+path('login/', login_user, name='login'),
+path('logout/', logout_user, name='logout'),
+```
+3. Membuat login dibutuhkan untuk mengakses menu inventory dan menghubungkan data inventory dengan user yang login
+```
+@login_required(login_url='/login')
+def show_main(request):
+    item = Item.objects.filter(user=request.user)
+
+    context = {
+        'name' : request.user.username,
+        'class' : 'PBP B',
+        'appName' : 'inventory00',
+        'products': item,
+        'products_count' : len(item),
+        'last_login': request.COOKIES['last_login'],
+    }
+
+    return render(request, "main.html", context)
+```
+- Sesuaikan model untuk menghubungkan Item dengan user
+```
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+
+class Item(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=255)
+    amount = models.IntegerField()
+    description = models.TextField()
+    price = models.IntegerField()
+    date_added = models.DateField(auto_now_add=True)
+```
+4. Melakukan pengecekan dan membuat user
+```
+env\Scripts\activate
+python manage.py runserver
+```
+Ketika sudah dapat mengakses secara lokal, buat user dengan menekan register dan melengkapi form yang ada.
+
+5. Membuat dan mengetes fitur tambahan
+- Terdapat beberapa fitur tambahan dalam aplikasi web ini, yaitu tombol '+', '-' dan 'Delete'.
+- Tombol '+' digunakan untuk menambahkan amount suatu barang (increment), tombol '-' untuk mengurangi amount suatu barang (decrement), dan tombol 'Delete' untuk menghapus suatu barang.
+Fungsi pada views.py ada pada kode berikut:
+```
+def increment_amount(request, product_id):
+    item = get_object_or_404(Item, id=product_id)
+    item.amount += 1
+    item.save()
+    return redirect('main:show_main')
+
+def decrement_amount(request, product_id):
+    item = get_object_or_404(Item, id=product_id)
+    if item.amount > 0:
+        item.amount -= 1
+        item.save()
+    return redirect('main:show_main')
+
+def delete_product(request, product_id):
+    item = get_object_or_404(Item, id=product_id)
+    item.delete()
+    return redirect('main:show_main')
+```
+untuk menambahkan tombol pada tabel yang kita punya bisa menggunakan kode berikut:
+```
+...
+ <tr>
+            <td>{{product.name}}</td>
+            <td> 
+                <a href="{% url 'main:increment_amount' product.id%}">
+                    <button>+</button> 
+                </a>
+            {{product.amount}} 
+                <a href="{% url 'main:decrement_amount' product.id%}">
+                    <button>-</button> 
+                </a> 
+            <td>{{product.price}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.date_added}}</td>
+            <td> 
+                <a href="{% url 'main:delete_product' product.id%}">
+                    <button> Delete </button>
+                </a>
+            </td>
+        </tr>
+...
+```
+- Jangan lupa untuk menambahkan path url ke urls.py
+```
+from main.views import increment_amount, decrement_amount, delete_product
+...
+path('increment_amount/<int:product_id>/', increment_amount, name='increment_amount'),
+path('decrement_amount/<int:product_id>/', decrement_amount, name='decrement_amount'),
+path('delete_product/<int:product_id>/', delete_product, name='delete_product'),
+...
+```
+- Coba tambahkan dan kurangi amount, coba delete suatu item
+6. Membuat dan mengetes dummy data pada 2 user
+Tambahkan beberapa item dengan mengisi form 'Add Item; di kedua user
+Berikut tampilan di user 1: ABA
+<img src=user_1_ABA.jpg>
+
+Berikut tampilan di user 2: Ari
+<img src=user_1_Ari.jpg>
+
+Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengakses item yang ada di user 1, begitu juga dnegan user 2
 
 
 
