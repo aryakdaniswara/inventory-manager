@@ -1,10 +1,13 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% load static %}
 
 {% block content %}
 <div class="container mt-5">
     <div class="login" style="padding-left: 20px; padding-right: 20px;">
 
-<h1>Add New Product</h1>
+
+<h1>Edit Product</h1>
 
 <form method="POST">
     {% csrf_token %}
@@ -13,11 +16,12 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="Add Product"/>
+                <input type="submit" value="Edit Product"/>
             </td>
         </tr>
     </table>
 </form>
+
 </div>
 
 {% endblock %}
