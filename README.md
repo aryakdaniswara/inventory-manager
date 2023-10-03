@@ -776,7 +776,7 @@ Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengak
 
 ---
 ###  Manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya
-1. Selector Universal (*): Selector ini digunakan untuk memilih semua elemen dalam halaman web. Selector ini biasa digunakan untuk memberikan gaya dasar. Perlu berhati-hati dalam menggunakan selector ini karena dapat memperngaruhi semua elemen.
+1. Selector Universal `(*)`: Selector ini digunakan untuk memilih semua elemen dalam halaman web. Selector ini biasa digunakan untuk memberikan gaya dasar. Perlu berhati-hati dalam menggunakan selector ini karena dapat mempengaruhi semua elemen.
 2. Selector Tag `(<p>, <h1>, <div>, dll.)`: Selector ini memilih semua elemen dengan tag HTML tertentu. Selector ini berguna untuk mengatur gaya dasar elemen-elemen HTML seperti paragraf, judul, atau div, dan sering digunakan dalam pembuatan tata letak halaman.
 3. Selector Class (.classname): Selector ini digunakan untuk memilih elemen-elemen yang memiliki kelas tertentu. Selector ini digunakan ketika menggabungkan elemen-elemen yang ingin diatur dengan gaya yang sama atau papa penerapan gaya pada suatu kelas.
 4. Selector ID (#idname): Selector ini digunakan untuk memilih elemen dengan ID tertentu. Selector ini biasa digunakan untuk mengatur gaya atau perilaku khusus untuk elemen dengan ID tertentu.
