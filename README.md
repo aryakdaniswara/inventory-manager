@@ -776,7 +776,7 @@ Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengak
 
 ---
 ###  Manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya
-1. Selector Universal (*): Selector ini digunakan untuk memilih semua elemen dalam halaman web. Selector ini biasa digunakan untuk memberikan gaya dasar. Perlu berhati-hati dalam menggunakan selector ini karena dapat memperngaruhi semua elemen.
+1. Selector Universal `(*)`: Selector ini digunakan untuk memilih semua elemen dalam halaman web. Selector ini biasa digunakan untuk memberikan gaya dasar. Perlu berhati-hati dalam menggunakan selector ini karena dapat mempengaruhi semua elemen.
 2. Selector Tag `(<p>, <h1>, <div>, dll.)`: Selector ini memilih semua elemen dengan tag HTML tertentu. Selector ini berguna untuk mengatur gaya dasar elemen-elemen HTML seperti paragraf, judul, atau div, dan sering digunakan dalam pembuatan tata letak halaman.
 3. Selector Class (.classname): Selector ini digunakan untuk memilih elemen-elemen yang memiliki kelas tertentu. Selector ini digunakan ketika menggabungkan elemen-elemen yang ingin diatur dengan gaya yang sama atau papa penerapan gaya pada suatu kelas.
 4. Selector ID (#idname): Selector ini digunakan untuk memilih elemen dengan ID tertentu. Selector ini biasa digunakan untuk mengatur gaya atau perilaku khusus untuk elemen dengan ID tertentu.
@@ -787,25 +787,25 @@ Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengak
 
 ---
 ### Tag HTML5
-1. <main>: Digunakan untuk mengelompokkan konten utama dalam halaman web. Biasanya, satu halaman web hanya memiliki satu elemen <main>, dan akan berguna dalam membantu mesin pencari dan aksesibilitas untuk mengidentifikasi konten utama.
+1. `<main>`: Digunakan untuk mengelompokkan konten utama dalam halaman web. Biasanya, satu halaman web hanya memiliki satu elemen `<main>`, dan akan berguna dalam membantu mesin pencari dan aksesibilitas untuk mengidentifikasi konten utama.
 
-2. <aside>: Untuk konten sampingan yang terkait dengan konten utama, seperti sidebar dengan widget atau iklan. Ini membantu memisahkan konten utama dari informasi tambahan.
+2. `<aside>`: Untuk konten sampingan yang terkait dengan konten utama, seperti sidebar dengan widget atau iklan. Ini membantu memisahkan konten utama dari informasi tambahan.
 
-3. <figure>: Untuk menandai konten media, seperti gambar atau video, beserta elemen yang terkait seperti keterangan menggunakan tag <figcaption>.
+3. `<figure>`: Untuk menandai konten media, seperti gambar atau video, beserta elemen yang terkait seperti keterangan menggunakan tag `<figcaption>`.
 
-4. <time>: Digunakan untuk menandai waktu atau tanggal dalam teks. Tag ini akan membantu mesin pencari dan pembaca layar memahami konteks waktu dalam konten.
+4. `<time>`: Digunakan untuk menandai waktu atau tanggal dalam teks. Tag ini akan membantu mesin pencari dan pembaca layar memahami konteks waktu dalam konten.
 
-5. <mark>: Untuk menyorot atau menandai teks dalam sebuah paragraf. Tag ini berguna untuk menyoroti kata-kata penting atau mencari teks yang relevan.
+5. `<mark>`: Untuk menyorot atau menandai teks dalam sebuah paragraf. Tag ini berguna untuk menyoroti kata-kata penting atau mencari teks yang relevan.
 
-6. <details> dan <summary>: Digunakan untuk membuat elemen yang bisa diperluas dan disusutkan. Biasanya digunakan untuk informasi tambahan yang bisa diakses dengan mengklik atau menekan tombol "Details".
+6. `<details>` dan `<summary>`: Digunakan untuk membuat elemen yang bisa diperluas dan disusutkan. Biasanya digunakan untuk informasi tambahan yang bisa diakses dengan mengklik atau menekan tombol "Details".
 
-7. <section>: Tag ini digunakan untuk mengelompokkan konten terkait, tag <section> juga dapat digunakan untuk memberikan struktur berlapis pada halaman web.
+7. `<section>`: Tag ini digunakan untuk mengelompokkan konten terkait, tag `<section>` juga dapat digunakan untuk memberikan struktur berlapis pada halaman web.
 
-8. <header>: Tag ini digunakan untuk bagian atas halaman web, tag <header> juga dapat digunakan untuk mengelompokkan elemen-elemen header dalam bagian tertentu dari halaman.
+8. `<header>`: Tag ini digunakan untuk bagian atas halaman web, tag `<header>` juga dapat digunakan untuk mengelompokkan elemen-elemen header dalam bagian tertentu dari halaman.
 
-9. <nav>: Untuk menu navigasi utama, Anda juga bisa menggunakan tag <nav> untuk sub-menu atau menu navigasi lainnya dalam halaman.
+9. `<nav>`: Untuk menu navigasi utama, Anda juga bisa menggunakan tag `<nav>` untuk sub-menu atau menu navigasi lainnya dalam halaman.
 
-10. <footer>: Tag ini akan berisi informasi kontak atau hak cipta, tag <footer> juga bisa berisi tautan-tautan terkait atau informasi penting lainnya.
+10. `<footer>`: Tag ini akan berisi informasi kontak atau hak cipta, tag `<footer>` juga bisa berisi tautan-tautan terkait atau informasi penting lainnya.
 
 ---
 ### Perbedaan antara Margin dan Padding
