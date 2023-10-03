@@ -774,5 +774,117 @@ Tambahkan beberapa item dengan mengisi form 'Add Item' di kedua user
 
 Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengakses item yang ada di user 1, begitu juga dengan user 2
 
+---
+###  Manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya
+1. Selector Universal (*): Selector ini digunakan untuk memilih semua elemen dalam halaman web. Selector ini biasa digunakan untuk memberikan gaya dasar. Perlu berhati-hati dalam menggunakan selector ini karena dapat memperngaruhi semua elemen.
+2. Selector Tag `(<p>, <h1>, <div>, dll.)`: Selector ini memilih semua elemen dengan tag HTML tertentu. Selector ini berguna untuk mengatur gaya dasar elemen-elemen HTML seperti paragraf, judul, atau div, dan sering digunakan dalam pembuatan tata letak halaman.
+3. Selector Class (.classname): Selector ini digunakan untuk memilih elemen-elemen yang memiliki kelas tertentu. Selector ini digunakan ketika menggabungkan elemen-elemen yang ingin diatur dengan gaya yang sama atau papa penerapan gaya pada suatu kelas.
+4. Selector ID (#idname): Selector ini digunakan untuk memilih elemen dengan ID tertentu. Selector ini biasa digunakan untuk mengatur gaya atau perilaku khusus untuk elemen dengan ID tertentu.
+5. Selector Pseudo-class (:pseudo-class): Selector ini memilih elemen berdasarkan keadaan atau interaksi pengguna, seperti elemen yang sedang dihover oleh mouse (:hover), elemen yang sedang aktif (:active), atau elemen yang sedang difokuskan (:focus). Selector inidigunakan untuk memberikan efek interaktif pada element.
+6. Selector Pseudo-element (::pseudo-element): Selector ini digunakan untuk memilih bagian khusus dari elemen, seperti bagian sebelum (:before) atau sesudah (:after) elemen, atau bahkan baris pertama (:first-line) dalam elemen teks. Selector ini dapat digunakan untuk mengatur gaya khusus untuk bagian-bagian elemen tertentu.
+7. Selector Kombinasi: Selector ini memungkinkan untuk memilih elemen berdasarkan hubungan atau konteks mereka dalam dokumen, seperti elemen yang berada dalam elemen lain (element1 element2), elemen yang langsung berikutnya (element1 + element2), atau elemen yang berada di bawah elemen lain (element1 > element2). Selector ini digunakan untuk elemen yang memiliki hubungan tertentu
+8. Selector Atribut ([attribute], [attribute=value], [attribute~=value]) Selector ini memilih elemen berdasarkan atribut HTML mereka. Selector ini digunakan ketika ingin menargetkan elemen yang memiliki atribut tertentu atau nilai atribut tertentu.
+
+---
+### Tag HTML5
+1. <main>: Digunakan untuk mengelompokkan konten utama dalam halaman web. Biasanya, satu halaman web hanya memiliki satu elemen <main>, dan akan berguna dalam membantu mesin pencari dan aksesibilitas untuk mengidentifikasi konten utama.
+
+2. <aside>: Untuk konten sampingan yang terkait dengan konten utama, seperti sidebar dengan widget atau iklan. Ini membantu memisahkan konten utama dari informasi tambahan.
+
+3. <figure>: Untuk menandai konten media, seperti gambar atau video, beserta elemen yang terkait seperti keterangan menggunakan tag <figcaption>.
+
+4. <time>: Digunakan untuk menandai waktu atau tanggal dalam teks. Tag ini akan membantu mesin pencari dan pembaca layar memahami konteks waktu dalam konten.
+
+5. <mark>: Untuk menyorot atau menandai teks dalam sebuah paragraf. Tag ini berguna untuk menyoroti kata-kata penting atau mencari teks yang relevan.
+
+6. <details> dan <summary>: Digunakan untuk membuat elemen yang bisa diperluas dan disusutkan. Biasanya digunakan untuk informasi tambahan yang bisa diakses dengan mengklik atau menekan tombol "Details".
+
+7. <section>: Tag ini digunakan untuk mengelompokkan konten terkait, tag <section> juga dapat digunakan untuk memberikan struktur berlapis pada halaman web.
+
+8. <header>: Tag ini digunakan untuk bagian atas halaman web, tag <header> juga dapat digunakan untuk mengelompokkan elemen-elemen header dalam bagian tertentu dari halaman.
+
+9. <nav>: Untuk menu navigasi utama, Anda juga bisa menggunakan tag <nav> untuk sub-menu atau menu navigasi lainnya dalam halaman.
+
+10. <footer>: Tag ini akan berisi informasi kontak atau hak cipta, tag <footer> juga bisa berisi tautan-tautan terkait atau informasi penting lainnya.
+
+---
+### Perbedaan antara Margin dan Padding
+- Margin adalah ruang di luar batas elemen. Margin akan mempengaruhi jarak antara suatu elemen dengan elemen lain di sekitarnya. Margin digunakan untuk mengatur jarak antara elemen-elemen, membuat elemen tersebut akan terpisah dari elemen lain, atau mengontrol tata letak secara keseluruhan.
+- Padding adalah ruang di dalam batas elemen. Padding akan mempengaruhi jarak antara isi elemen dan batas elemen itu sendiri. Padding digunakan untuk mengatur jarak antara suatu konten elemen dan batas elemen tersebut.
+
+---
+### Perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+- Bootstrap adalah frame work CSS open source yang digunakan untuk membuat situs web dan aplikasi responsif. Bootstrap adalah framework front end berbasis mobile pertama yang berisi template HTML, CSS, dan JavaScript untuk berbagai komponen. Bootstrap menyediakan komponen siap pakai dengan gaya bawaan. Anda menggabungkan kelas-kelas Bootstrap ke dalam elemen HTML.  Dalam Bootstrap, kustomisasi tema dan gaya bisa dilakukan tetapi terkadang memerlukan penyesuaian yang lebih rumit. Bootstrap juga memiliki berkas yang lebih besar karena menyertakan banyak komponen dan gaya bawaan. Bootstrap digunakan jika ingin mengembangkan situs web atau aplikasi dengan cepat, tidak ingin menulis banyak CSS kustom, dan memerlukan komponen-komponen siap pakai.
+  
+-  Tailwind CSS adalah framework CSS berbasis utilitas dan low-level framework dari CSS. Tailwind menawarkan kelas-kelas dengan satu fungsi yang dapat langsung digunakan dalam halaman web untuk styling elemen. Tailwind CSS memungkinkan pengembangan dengan cepat dengan interface pengguna yang custom. Tailwind juga merupakan salah satu library CSS berbasis utilitas paling populer. Tailwind CSS menggunakan pendekatan utilitas, yang berarti perku membangun gaya elemen secara eksplisit dengan menambahkan kelas-kelas ke elemen HTML. Tailwind memungkinkan pengguna untuk dengan mudah menyesuaikan setiap aspek tampilan dengan mengedit file konfigurasi. Tailwind juga memungkinkan pengguna untuk dengan mudah menyesuaikan setiap aspek tampilan dengan mengedit file konfigurasi. Tailwind digunakan ketika ingin memiliki kendali yang lebih besar atas tampilan, ingin menghindari overhead CSS yang tidak perlu, atau jika ingin membuat desain yang sangat kustom sesuai kebutuhan yang diperlukan.
+
+---
+1. Tambahkan Bootstrap dan JSke `base.html` yang merupakan dasar dari halaman html yang lain. Anda dapat menggunakan kode berikut
+- Bootstrap
+```
+<head>
+    {% block meta %}
+        ...
+    {% endblock meta %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+```
+
+- JS
+```
+<head>
+    ...
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+J4jsl5c9zdLKaUk5Ae5f5b1bw6AUn5f5v8FZJoMxm6f5cH1" crossorigin="anonymous"></script>
+</head>
+```
+
+3. Pada tugas ini pertama saya menambahkan navbar ke halaman `base.html` agar navbar dapat terlihat di seluruh halaman yang lain. Pilihan penggunaan navbar dapat dilihat di [link berikut](https://getbootstrap.com/docs/5.3/components/navbar/)
+  
+4. Selanjutnya saya menambahkan fungsi edit untuk mengubah produk yang dibuat
+```
+def edit_product(request, id):
+    product = Item.objects.get(pk = id)
+
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+    
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+```
+
+Tambahkan kode tersebut di views.py pada aplikasi Anda dan hubungkan dengan urls.py
+
+5. Memperbaiki layout halaman. Selanjutnya saya memperbaiki layout halaman dengan dasar kode berikut
+```
+<div class="container mt-5">
+    <div class="login" style="padding-left: 20px; padding-right: 20px;">
+```
+- Kode tersebut dapat digunakan agar tiap halaman yang ada memiliki jarak dan tidak terlalu menempel ke kiri atau kanan
+  
+6. Kustomisasi button, saya mengubah button saya agar menjadi lebih indah dengan kode berikut
+```
+<a href="{% url 'main:edit_product' product.pk %}" class="btn btn-warning btn-sm me-2">
+```
+- Sesuaikan kebutuhan button Anda dan tambahkan sesuai dengan letak button tersebut. Cek [link ini](https://getbootstrap.com/docs/5.3/components/buttons/) untuk informasi tentang button
+
+### Tambahan
+Untuk mengimplentasi bonus, saya menggunakan kode berikut agar dapat mendeteksi bahwa produk yang ditampilkan merupakan produk terakhir
+```
+ <tr{% if forloop.last %} class="last-row"{% endif %}>
+```
+- kemudian kode tersebut akan memanggil kode yang mengubah warna produk menjadi merah
+  
+```
+ <style>
+        .last-row td {
+            color: red; /* Set the text color for the last row */
+        }
+    </style>
+```
+
 
 
