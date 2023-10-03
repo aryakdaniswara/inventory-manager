@@ -787,7 +787,7 @@ Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengak
 
 ---
 ### Tag HTML5
-1. `<main>`: Digunakan untuk mengelompokkan konten utama dalam halaman web. Biasanya, satu halaman web hanya memiliki satu elemen <main>, dan akan berguna dalam membantu mesin pencari dan aksesibilitas untuk mengidentifikasi konten utama.
+1. `<main>`: Digunakan untuk mengelompokkan konten utama dalam halaman web. Biasanya, satu halaman web hanya memiliki satu elemen `<main>`, dan akan berguna dalam membantu mesin pencari dan aksesibilitas untuk mengidentifikasi konten utama.
 
 2. `<aside>`: Untuk konten sampingan yang terkait dengan konten utama, seperti sidebar dengan widget atau iklan. Ini membantu memisahkan konten utama dari informasi tambahan.
 
