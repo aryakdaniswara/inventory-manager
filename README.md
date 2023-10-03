@@ -791,7 +791,7 @@ Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengak
 
 2. `<aside>`: Untuk konten sampingan yang terkait dengan konten utama, seperti sidebar dengan widget atau iklan. Ini membantu memisahkan konten utama dari informasi tambahan.
 
-3. `<figure>`: Untuk menandai konten media, seperti gambar atau video, beserta elemen yang terkait seperti keterangan menggunakan tag <figcaption>.
+3. `<figure>`: Untuk menandai konten media, seperti gambar atau video, beserta elemen yang terkait seperti keterangan menggunakan tag `<figcaption>`.
 
 4. `<time>`: Digunakan untuk menandai waktu atau tanggal dalam teks. Tag ini akan membantu mesin pencari dan pembaca layar memahami konteks waktu dalam konten.
 
