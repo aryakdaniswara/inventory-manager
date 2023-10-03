@@ -799,13 +799,13 @@ Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengak
 
 6. `<details>` dan `<summary>`: Digunakan untuk membuat elemen yang bisa diperluas dan disusutkan. Biasanya digunakan untuk informasi tambahan yang bisa diakses dengan mengklik atau menekan tombol "Details".
 
-7. `<section>`: Tag ini digunakan untuk mengelompokkan konten terkait, tag <section> juga dapat digunakan untuk memberikan struktur berlapis pada halaman web.
+7. `<section>`: Tag ini digunakan untuk mengelompokkan konten terkait, tag `<section>` juga dapat digunakan untuk memberikan struktur berlapis pada halaman web.
 
-8. `<header>`: Tag ini digunakan untuk bagian atas halaman web, tag <header> juga dapat digunakan untuk mengelompokkan elemen-elemen header dalam bagian tertentu dari halaman.
+8. `<header>`: Tag ini digunakan untuk bagian atas halaman web, tag `<header>` juga dapat digunakan untuk mengelompokkan elemen-elemen header dalam bagian tertentu dari halaman.
 
-9. `<nav>`: Untuk menu navigasi utama, Anda juga bisa menggunakan tag <nav> untuk sub-menu atau menu navigasi lainnya dalam halaman.
+9. `<nav>`: Untuk menu navigasi utama, Anda juga bisa menggunakan tag `<nav>` untuk sub-menu atau menu navigasi lainnya dalam halaman.
 
-10. `<footer>`: Tag ini akan berisi informasi kontak atau hak cipta, tag <footer> juga bisa berisi tautan-tautan terkait atau informasi penting lainnya.
+10. `<footer>`: Tag ini akan berisi informasi kontak atau hak cipta, tag `<footer>` juga bisa berisi tautan-tautan terkait atau informasi penting lainnya.
 
 ---
 ### Perbedaan antara Margin dan Padding
