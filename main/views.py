@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from main.forms import ProductForm
 from django.urls import reverse
 from django.http import HttpResponse
@@ -10,6 +10,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages  
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -119,3 +122,30 @@ def delete_product(request, product_id):
     item.delete()
     return redirect('main:show_main')
 
+def get_product_json(request):
+    product_item = Item.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Item(name=name, amount=amount, price=price, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+def delete_product_ajax(request, product_id): # BELUM JALAN BUTTONNYAA
+    try:
+        product = Item.objects.get(id=product_id, user=request.user)
+        product.delete()
+        return JsonResponse({'message': 'Product deleted successfully'})
+    except Item.DoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
