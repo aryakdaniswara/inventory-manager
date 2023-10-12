@@ -1,6 +1,66 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% block content %}
+    <div class="container mt-5" style="padding-bottom: 30px;">
+        <h1 class="mb-4">Shopping List Page</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Name:</h5>
+                <p>{{ name }}</p>
+
+                <h5>Class:</h5>
+                <p>{{ class }}</p>
+
+                <h5>Anda memiliki {{ products_count }} produk</h5>
+            </div>
+        </div>
+
+        <!-- Card View -->
+    <div id="product_cards" class="row"></div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h5>Sesi terakhir login: {{ last_login }}</h5>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a href="{% url 'main:create_product' %}" class="btn btn-primary">Add New Product</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .last-card {
+        background-color: red;
+    }
+</style>
+
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteProductLabel">Delete Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this product?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="button_delete" data-bs-dismiss="modal">Delete Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Product Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -36,123 +96,38 @@
         </div>
     </div>
 </div>
-
-    <div class="container mt-5" style="padding-bottom: 30px;">
-        <h1 class="mb-4">Shopping List Page</h1>
-
-        <div class="row">
-            <div class="col-md-6">
-                <h5>Name:</h5>
-                <p>{{ name }}</p>
-
-                <h5>Class:</h5>
-                <p>{{ class }}</p>
-
-                <h5>Anda memiliki {{ products_count }} produk</h5>
-            </div>
-        </div>
-
-        <table id="product_table"></table>
-
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <h5>Sesi terakhir login: {{ last_login }}</h5>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <a href="{% url 'main:create_product' %}" class="btn btn-primary">
-                    Add New Product
-                </a>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
-                
-            </div>
-        </div>
-    </div>
-
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteProductLabel">Delete Product</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this product?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="button_delete" data-bs-dismiss="modal">Delete Product</button>
-            </div>
-        </div>
-    </div>
-</div>
-
     
-    <style>
-        table {
-        border-collapse: collapse;
-        width: 100%;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #ddd;
-        }
-
-        .last-row td {
-            color: red; /* Set the text color for the last row */
-        }
-    </style>
-
 <script>
     async function getProducts() {
         return fetch("{% url 'main:get_product_json' %}").then((res) => res.json());
     }
 
     async function refreshProducts() {
-        document.getElementById("product_table").innerHTML = "";
-        const products = await getProducts();
-        let htmlString = `<tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date Added</th>
-            <th>Action</th>
-        </tr>`;
+        const items = await getProducts();
+        const productCards = document.getElementById("product_cards");
+        productCards.innerHTML = "";
 
-        products.forEach((item) => {
-            htmlString += 
-            `<tr>
-                <td>${item.fields.name}</td>
-                <td>${item.fields.amount}</td>
-                <td>${item.fields.price}</td>
-                <td>${item.fields.description}</td>
-                <td>${item.fields.date_added}</td>
-                <td>
+        items.forEach((item, index) => {
+            const card = document.createElement("div");
+            card.classList.add("col-md-4", "mb-4");
+            card.innerHTML = `
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"">${item.fields.name}</h5>
+                        <p class="card-text"><b>Amount:</b> ${item.fields.amount}</p>
+                        <p class="card-text"><b>Price:</b> ${item.fields.price}</p>
+                        <p class="card-text"><b>Description:</b> ${item.fields.description}</p>
+                        <p class="card-text"><b>Date Added:</b> ${item.fields.date_added}</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-danger" data-product-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#deleteProductModal">Delete</button>
+                        <button class="btn btn-primary" data-product-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#deleteProductModal">Edit</button>
+                    </div>
+                </div>
+            `;
 
-                    <button class="btn btn-danger" data-product-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#deleteProductModal">Delete</button>
-                </td>            
-            </tr>`;
+            productCards.appendChild(card);
         });
-
-        document.getElementById("product_table").innerHTML = htmlString;
     }
 
     refreshProducts();
@@ -173,7 +148,7 @@
         const productId = document.getElementById("button_delete").getAttribute("data-product-id");
   
         fetch(`/delete_product_ajax/${productId}/`, {
-            method: "POST",
+            method: "DELETE",
         })
             .then((response) => response.json())
             .then((data) => {

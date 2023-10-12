@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_http_methods
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -142,10 +142,12 @@ def add_product_ajax(request):
 
     return HttpResponseNotFound()
 
+@csrf_exempt
+@require_http_methods(['DELETE'])
 def delete_product_ajax(request, product_id): # BELUM JALAN BUTTONNYAA
     try:
         product = Item.objects.get(id=product_id, user=request.user)
         product.delete()
-        return JsonResponse({'message': 'Product deleted successfully'})
+        return HttpResponse(b"DELETED", status=200)
     except Item.DoesNotExist:
-        return JsonResponse({'error': 'Product not found'}, status=404)
+        return HttpResponse({'error': 'Product not found'}, status=404)
