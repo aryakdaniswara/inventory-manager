@@ -395,7 +395,7 @@ def show_main(request):
 
 ---
 ### Bagan Relasi
-<img src=bagan.png>
+<img src=img/bagan.png>
 
 - urls.py <div>
   File urls.py akan menerima request yang dilakukan User. Pencarian url akan dilakukan urlpatterns untuk menemukan url yang sesuai dengan request yang diberikan.
@@ -514,17 +514,17 @@ urlpatterns = [
 ---
 ### Mengakses URL menggunakan Postman
 - main HTML
-  <img src=HTML.jpg>
+  <img src=img/HTML.jpg>
 - create-form HTML
-  <img src=create-form.jpg>
+  <img src=img/create-form.jpg>
 - XML
-   <img src=XML.jpg>
+   <img src=img/XML.jpg>
 - JSON
-   <img src=JSON.jpg>
+   <img src=img/JSON.jpg>
 - XML by ID
-  <img src=XMLbyID.jpg>
+  <img src=img/XMLbyID.jpg>
 - JSON by ID
-- <img src=JSONbyID.jpg>
+- <img src=img/JSONbyID.jpg>
 
 ---
 ### Tambahan
@@ -767,10 +767,10 @@ path('delete_product/<int:product_id>/', delete_product, name='delete_product'),
   
 Tambahkan beberapa item dengan mengisi form 'Add Item' di kedua user
 - Berikut tampilan di user 1: ABA
-<img src=user_1_ABA.jpg>
+<img src=img/user_1_ABA.jpg>
 
 - Berikut tampilan di user 2: Ari
-<img src=user_2_Ari.jpg>
+<img src=img/user_2_Ari.jpg>
 
 Dapat dilihat bahwa isi dari user 1 dan user 2 berbeda. user 1 hanya akan mengakses item yang ada di user 1, begitu juga dengan user 2
 
@@ -885,6 +885,29 @@ Untuk mengimplentasi bonus, saya menggunakan kode berikut agar dapat mendeteksi 
         }
     </style>
 ```
+---
+### Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+- Synchronous Programming: <br>
+Dalam synchronous programming, operasi atau tugas akan dieksekusi satu per satu secara berurutan. Setiap operasi harus menunggu operasi sebelumnya selesai sebelum dapat dimulai. Oleh karena itu, keseluruhan proses dapat memakan waktu yang lama karena tugas berikutnya tidak dapat dijalankan sebelum tugas sebelumnya telah selesai. Tipe ini cocok untuk tugas yang cepat dan tidak memerlukan waktu yang lama untuk menyelesaikan.
+- Asynchronous Programming: <br>
+Dalam asynchronous programming operasi atau tugas dapat dieksekusi secara bersamaan tanpa harus menunggu operasi sebelumnya selesai. Asynchronous programming memungkinkan aplikasi untuk tetap responsif, karena tidak menghentikan operasi lain selama operasi yang memakan waktu sedang berjalan. Tipe ini sangat berguna saat ada tugas yang memerlukan waktu lama karena dapat menjalankan tugas lain tanpa menghentikan tugas yang lama tersebut.
 
+###  Penerapan paradigma event-driven programming dalam JavaScript dan AJAX
+Paradigma event-driven programming adalah cara untuk merespons peristiwa atau events yang terjadi dalam aplikasi. Paradigma event-driven programming ini sangat umum dalam JavaScript dan digunakan secara luas dalam pengembangan web, terutama dalam kombinasi dengan teknologi seperti AJAX untuk membuat aplikasi web responsif. Salah satu contoh penggunaan paradigma ini adalah pada  tombol Add Product di berkas main.html. Dengan mengklik tombol tersebut, suatu event terjadi, yaitu pembukaan form yang dapat diisi dengan produk baru
 
+### Penerapan asynchronous programming pada AJAX
+AJAX (Asynchronous JavaScript and XML) adalah teknologi yang menggunakan programming asynchronous untuk berkomunikasi antara browser dan server tanpa harus merefresh halaman web secara keseluruhan. Saat browser melakukan permintaan AJAX, seperti permintaan GET atau POST, browser dapat menjalankan kode JavaScript lainnya tanpa harus menunggu respons dari server. Dengan AJAX, request JavaScript tidak perlu menunggu respons untuk melanjutkan proses sehingga aplikasi web dapat menjadi lebih responsif.
 
+### Bandingkan Fetch API dan jQuery untuk Penerapan AJAX
+- Fetch API <br>
+Fetch API adalah bagian dari standar web modern, yang berarti itu adalah API bawaan yang terintegrasi dalam browser web utama. Fetch API lebih ringan dan modern daripada jQuery, dan ini merupakan pilihan yang baik untuk pengembangan web yang lebih baru. Fetch API menggunakan konsep promise, sehingga memungkinkan untuk mengelola permintaan dan respons secara lebih jelas dan dapat diandalkan.
+- jQuery <br>
+jQuery adalah sebuah library JavaScript yang menyederhanakan banyak tugas di dalam pengembangan web. Selain AJAX, jQuery memiliki berbagai fitur lain yang memudahkan manipulasi DOM dan efek visual. jQuery diciptakan untuk memastikan kompatibilitas lintas browser yang baik, sehingga Anda dapat yakin bahwa kode Anda akan berjalan dengan baik di berbagai browser. Namun, jQuery memiliki ukuran yang lebih besar dan bisa jadi berlebijan jika hanya ingin menggunakan fitur-fitur AJAX
+
+### Implementasi Checklist
+- AJAX GET <br>
+Pada berkas views.py, saya membuat fungsi get_item_json untuk menerima barang-barang yang dimiliki oleh pengguna dalam bentuk format JSON.  Fungsi tersebut kemudian dihubungkan di urls.py dan diterapkan dalam main.html untuk membuat fungsi getItems() yang bersifat asinkronus menggunakan async. Fungsi tersebut akan mengembalikan JSON file menggunakan fetch API. Selanjutnya ada fungsi refreshProducts() yang akan mereload halaman secara asinkronus untuk memperbarui data yang ada.
+- AJAX POST <br>
+Implementasi AJAX POST digunakan untuk membuat sebuah produk baru secara asinkronus. Sebelumnya saya membuat halaman modal yang akan muncul ketika saya menekan button add product by AJAX. Pada modal tersebut berisi form seperti ketika kita sebelumnya ingin membuat produk dengan field nama, amount, price, dan description. Pada modal tersebut terdapat button Close yang akan mentrigger action untuk menambahkan produk ke dalam tabel. Pada views.py daya membuat fungsi add_item_ajax yang akan menambahkan item jika form valid. Kemudian saya menambahkan pathnya di urls,py. Pada main.html, saya menambahkan fungsi addproduct untuk membuat barang terbaru tersebut, setelah itu akan terjadi reload secara asinkronus menggunakan refreshProducts()
+- collectstatic <br>
+Sebelum saya menjalankan perintah python manage.py collectstatic yang akan mengambil semua berkas static, saya mengubah STATIC_ROOT di settings.py. Tujuannya adalah untuk mengumpulkan berkas static di suatu direktori tertentu, dalam hal ini staticfiles.
