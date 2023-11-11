@@ -2,7 +2,7 @@
 {% load humanize %}
 {% block content %}
     <div class="container mt-5" style="padding-bottom: 30px;">
-        <h1 class="mb-4">Shopping List Page</h1>
+        <h1 class="mb-4">Inventory Manager</h1>
 
         <div class="row">
             <div class="col-md-6">
@@ -15,6 +15,7 @@
                 <h5>Anda memiliki {{ products_count }} produk</h5>
             </div>
         </div>
+
 
         <!-- Card View -->
     <div id="product_cards" class="row"></div>
@@ -110,7 +111,7 @@
         items.forEach((item, index) => {
             const card = document.createElement("div");
             card.classList.add("col-md-4", "mb-4");
-            card.innerHTML = `
+            card.innerHTML += `
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"">${item.fields.name}</h5>
@@ -120,8 +121,9 @@
                         <p class="card-text"><b>Date Added:</b> ${item.fields.date_added}</p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-danger" data-product-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#deleteProductModal">Delete</button>
-                        <button class="btn btn-primary" data-product-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#deleteProductModal">Edit</button>
+                        <button type="button" class="btn btn-danger button_remove" data-id=${item.pk}>
+                                Delete
+                        </button>
                     </div>
                 </div>
             `;
@@ -144,25 +146,27 @@
 
     document.getElementById("button_add").onclick = addProduct;
 
-    function deleteProduct() {
-        const productId = document.getElementById("button_delete").getAttribute("data-product-id");
+    function deleteProduct(id) {
   
-        fetch(`/delete_product_ajax/${productId}/`, {
+        fetch(`/delete_product_ajax/${id}/`, {
             method: "DELETE",
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                
-                console.log(data); 
-                refreshProducts();
+        }).then(response => {
+                if (response.ok){
+                    refreshProducts();
+                } else {
+                    console.error('Failed to delete item')
+                }
             })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-    document.getElementById("button_delete").onclick = deleteProduct;
+        }
 
- 
+    document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('button_remove')) {
+                let id = e.target.getAttribute('data-id');
+                deleteProduct(id)
+            }
+        });
+
+
 </script>
 
 {% endblock content %}

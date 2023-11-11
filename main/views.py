@@ -25,7 +25,7 @@ def show_main(request):
         'appName' : 'inventory00',
         'products': item,
         'products_count' : len(item),
-        'last_login': request.COOKIES['last_login'],
+        # 'last_login': request.COOKIES['last_login'],
     }
 
     return render(request, "main.html", context)
