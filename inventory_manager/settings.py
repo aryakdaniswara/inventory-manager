@@ -33,7 +33,7 @@ PRODUCTION = env.bool('PRODUCTION', False)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['arya-kusuma-tugas.pbp.cs.ui.ac.id', 'localhost', '127.0.0.1', '*']
 
 
 # Application definition
@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'django.contrib.humanize',
+    'authentication',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +59,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
+CORS_ORIGIN_WHITELIST = ['https://arya-kusuma-tugas.pbp.cs.ui.ac.id']
 
 ROOT_URLCONF = 'inventory_manager.urls'
 

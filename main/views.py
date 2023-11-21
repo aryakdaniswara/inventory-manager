@@ -13,6 +13,7 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+import json
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -83,6 +84,7 @@ def register(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
+@csrf_exempt
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -144,10 +146,53 @@ def add_product_ajax(request):
 
 @csrf_exempt
 @require_http_methods(['DELETE'])
-def delete_product_ajax(request, product_id): # BELUM JALAN BUTTONNYAA
+def delete_product_ajax(request, product_id): 
     try:
         product = Item.objects.get(id=product_id, user=request.user)
         product.delete()
         return HttpResponse(b"DELETED", status=200)
     except Item.DoesNotExist:
         return HttpResponse({'error': 'Product not found'}, status=404)
+    
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+
+        new_product = Item.objects.create(
+            user = request.user,
+            name = data["name"],
+            price = int(data["price"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
+@csrf_exempt
+
+def get_user_item_json(request):
+
+    user = request.user
+
+    if user.is_authenticated:
+
+        data = Item.objects.filter(user=user)
+
+        # Rest of your code
+
+    else:   
+
+        # Handle the case when the user is not authenticated
+
+        data = []
+
+
+
+
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
